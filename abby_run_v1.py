@@ -1,11 +1,20 @@
 import pgzrun
+# ^^^ remove this part if your running with command line
+
+# import the randint function
 from random import randint
+
+# define the actors
 player = Actor('walk1')
 level = Actor('grass')
 level2 = Actor('grass')
 spike = Actor('spike')
+
+# screen size
 WIDTH = 400
 HEIGHT = 500
+
+# variables that control the game
 speedy = 0
 level_speed = 10
 player.pos = 100, 200
@@ -15,9 +24,12 @@ spike.pos = 1000, 300
 updates = 0
 score = 0
 score2 = 0
+
+# these variables control th menu and game over screen
 game_over = False
 menu = True   
 
+# this function draws everything onscreen
 def draw():
 	screen.fill('blue')
 	if game_over:
@@ -37,13 +49,18 @@ def draw():
 		player.draw()
 		spike.draw()
 		screen.draw.text('SCORE: ' + str(score), topleft=(10, 10))
-	
+
+# this is themain game loop
 def update():
+	# make the variables global
 	global speedy, updates, level_speed,score, game_over, menu, score2
+
+	# menu controls
 	if menu:
 		if keyboard.space:
 			menu = False
 	else:
+		# game loop
 		speedy += 1
 		player.y += speedy
 		if player.colliderect(level) or player.colliderect(level2):
@@ -76,3 +93,4 @@ def update():
 		if player.collidepoint(spike.x, spike.y):
 			game_over = True
 pgzrun.go()
+# ^^^ remove this too if you run on the command line
